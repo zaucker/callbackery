@@ -22,6 +22,9 @@
                 },
                 {
                     "manifest"   : "${CALLBACKERY_PATH}/uploadwidget/Manifest.json"
+                },
+                {
+                    "manifest"   : "${CALLBACKERY_PATH}/combotable/Manifest.json"
                 }
             ]
         },
