@@ -13,6 +13,7 @@ Usage: $0 showconfig [options]
   --verbose
   --help
   --html     output as html
+  --pod      output as pod
 
 EOF
 
@@ -21,12 +22,16 @@ my %opt;
 sub run ($self, @args) {
     my $app = $self->app;
 
-    GetOptionsFromArray \@args, \%opt,qw(help verbose html) or exit 1;
+    GetOptionsFromArray \@args, \%opt,qw(help verbose html pod) or exit 1;
 
     $app->log->level($opt{verbose} ? 'debug' : 'info');
 
     if ($opt{help}) { die $self->usage }
 
+    if ($opt{pod}) {
+        print $app->config->pod;
+        return;
+    }
     $opt{html} ? Pod::Simple::HTML->filter(\$app->config->pod)
                : Pod::Simple::Text->filter(\$app->config->pod);
 
@@ -44,7 +49,7 @@ showconfig - show config documentation as pod
 
 =head1 SYNOPSIS
 
-APPLICATION B<showconfig> [--verbose] [--help] [--html]
+APPLICATION B<showconfig> [--verbose] [--help] [--html] [--pod]
 
 =head1 DESCRIPTION
 
